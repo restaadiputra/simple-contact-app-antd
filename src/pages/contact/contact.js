@@ -1,7 +1,9 @@
 import { Typography } from 'antd';
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 import MobileContactList from './mobile-contact-list';
+import DesktopContactList from './desktop-contact-list';
 
 const data = [
   {
@@ -35,10 +37,16 @@ const data = [
 ];
 
 function Contact() {
+  const isMobile = useMediaQuery({ maxWidth: 640 });
+
   return (
     <>
       <Typography.Title level={2}>Contact</Typography.Title>
-      <MobileContactList data={data} />
+      {isMobile ? (
+        <MobileContactList data={data} />
+      ) : (
+        <DesktopContactList data={data} />
+      )}
     </>
   );
 }
