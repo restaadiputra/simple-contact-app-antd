@@ -2,14 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography, Modal } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Typography, Modal, message, Button } from 'antd';
+import { ExclamationCircleOutlined, UserAddOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
 
 import MobileContactList from './mobile-contact-list';
 import DesktopContactList from './desktop-contact-list';
 import Fab from 'components/fab';
-import { deleteContact, addContact } from 'store/contact';
-import { getAllContact } from 'services/contact';
+import { deleteContact, replaceContact } from 'store/contact';
+import { getAllContact, deleteContactById } from 'services/contact';
+
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+`;
 
 function Contact() {
   const history = useHistory();
@@ -30,7 +37,17 @@ function Contact() {
     history.push('/add');
   };
 
-  const handleDelete = (id) => {
+  const handleDeleteContact = (id) => {
+    deleteContactById(id)
+      .then(() => {
+        dispatch(deleteContact(id));
+      })
+      .catch((error) => {
+        message.error(error?.response?.data?.message || 'Something went wrong');
+      });
+  };
+
+  const handleClickDelete = (id) => {
     confirm({
       title: 'Delete contact?',
       icon: <ExclamationCircleOutlined />,
@@ -39,7 +56,7 @@ function Contact() {
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        dispatch(deleteContact(id));
+        handleDeleteContact(id);
       },
       width: 300,
       centered: true,
@@ -50,34 +67,39 @@ function Contact() {
   useEffect(() => {
     setLoading(true);
     getAllContact()
-      .then(res => {
+      .then((res) => {
         console.log(res);
         setLoading(false);
-        dispatch(addContact(res))
+        dispatch(replaceContact(res));
       })
-      .catch(err => {
+      .catch((err) => {
         setLoading(false);
-        console.log(err)
-      })
+        console.log(err);
+      });
   }, [dispatch]);
-
-  
 
   return (
     <>
-      <Typography.Title level={2}>Contact</Typography.Title>
+      <TitleContainer>
+        <Typography.Title level={2}>Contact</Typography.Title>
+        {!isMobile && (
+          <Button type="primary" icon={<UserAddOutlined />} onClick={handleAdd}>
+            Add Contact
+          </Button>
+        )}
+      </TitleContainer>
       {isMobile ? (
         <MobileContactList
           data={contactData}
           onEdit={handleEdit}
-          onDelete={handleDelete}
+          onDelete={handleClickDelete}
           loading={loading}
         />
       ) : (
         <DesktopContactList
           data={contactData}
           onEdit={handleEdit}
-          onDelete={handleDelete}
+          onDelete={handleClickDelete}
           loading={loading}
         />
       )}

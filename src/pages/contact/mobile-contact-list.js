@@ -31,6 +31,7 @@ function ContactList({ data, onEdit, onDelete, loading }) {
           />
         </List.Item>
       )}
+      style={{paddingBottom: '80px'}}
     />
   );
 }

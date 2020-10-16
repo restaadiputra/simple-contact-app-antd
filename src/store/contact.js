@@ -1,6 +1,7 @@
 const ADD_CONTACT = 'contact/add_contact';
 const UPDATE_CONTACT = 'contact/update_contact';
 const DELETE_CONTACT = 'contact/delete_contact';
+const REPLACE_CONTACT = 'contact/replace_contact';
 
 const initialState = [];
 
@@ -20,6 +21,9 @@ const contactReducer = (state = initialState, action) => {
     case DELETE_CONTACT:
       return state.filter((contact) => contact.id !== action.id);
 
+    case REPLACE_CONTACT:
+      return action.payload;
+
     default:
       return state;
   }
@@ -38,6 +42,11 @@ export const updateContact = (payload) => ({
 export const deleteContact = (id) => ({
   type: DELETE_CONTACT,
   id,
+});
+
+export const replaceContact = (payload) => ({
+  type: REPLACE_CONTACT,
+  payload,
 });
 
 export default contactReducer;

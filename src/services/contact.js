@@ -9,3 +9,9 @@ export const getContactById = (id) =>
 
 export const createContact = (data) =>
   api.post(`/contact`, data).then((res) => res.data);
+
+export const updateContactById = (id, data) =>
+  api.put(`/contact/${id}`, data).then((res) => res.data);
+
+export const deleteContactById = (id) =>
+  api.delete(`/contact/${id}`).then((res) => res.data);

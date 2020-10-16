@@ -14,14 +14,18 @@ const menu = (onEdit, onDelete) => (
       icon={<EditOutlined />}
       onClick={onEdit}
       data-testid="edit"
-    >
+      style={{ padding: '0.5rem 1rem' }}
+      
+      >
       Edit
-    </Menu.Item>
-    <Menu.Item
+      </Menu.Item>
+      <Menu.Divider />
+      <Menu.Item
       key="1"
       icon={<DeleteOutlined />}
       onClick={onDelete}
       data-testid="delete"
+      style={{ padding: '0.5rem 1rem' }}
     >
       Delete
     </Menu.Item>

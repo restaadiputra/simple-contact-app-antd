@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'antd';
+import { Table, Avatar } from 'antd';
 
 import ActionMenu from './action-menu';
 
@@ -9,22 +9,7 @@ const columns = (onEdit, onDelete) => [
     title: 'Photo',
     dataIndex: 'photo',
     render: (photo) => {
-      return (
-        <>
-          <div
-            style={{
-              backgroundImage: `url(${photo})`,
-              backgroundColor: '#fff',
-              height: '50px',
-              width: '50px',
-              borderRadius: '50%',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-            }}
-          />
-        </>
-      );
+      return <Avatar src={photo} size="large" />;
     },
   },
   { title: 'First Name', dataIndex: 'firstName' },
