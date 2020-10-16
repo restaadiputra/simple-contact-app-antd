@@ -21,7 +21,17 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
-test('should render form without error', async () => {
+test('should go back to contact list if cancel button was clicked', () => {
+  renderWithStore(<AddContactPage />);
+
+  userEvent.click(screen.getAllByRole('button')[1]);
+
+  expect(mockHistoryPush).toHaveBeenCalledTimes(1);
+  expect(mockHistoryPush).toHaveBeenCalledWith('/');
+});
+
+test('should push history to / if create contact is success', async () => {
+  mockCreateContact.mockImplementation(() => Promise.resolve({ message: "Success" }));
   renderWithStore(<AddContactPage />);
 
   userEvent.type(screen.getByPlaceholderText(/first name/i), 'first', {
@@ -34,7 +44,7 @@ test('should render form without error', async () => {
     allAtOnce: true,
   });
 
-  userEvent.click(screen.getAllByRole('button')[1]);
+  userEvent.click(screen.getAllByRole('button')[0]);
 
   await waitFor(() => expect(mockCreateContact).toHaveBeenCalledTimes(1));
 
@@ -44,13 +54,37 @@ test('should render form without error', async () => {
     age: '10',
     photo: undefined,
   });
-});
-
-test('should go back to contact list if cancel button was clicked', () => {
-  renderWithStore(<AddContactPage />);
-
-  userEvent.click(screen.getAllByRole('button')[0]);
 
   expect(mockHistoryPush).toHaveBeenCalledTimes(1);
   expect(mockHistoryPush).toHaveBeenCalledWith('/');
 });
+
+test('should show error from server respond if rejected', async () => {
+  const errMessage = "Email required"
+  mockCreateContact.mockImplementation(() =>
+    Promise.reject({
+      response: {
+        data: {
+          message: errMessage,
+        },
+      },
+    })
+  );
+  renderWithStore(<AddContactPage />);
+
+  userEvent.type(screen.getByPlaceholderText(/first name/i), 'first', {
+    allAtOnce: true,
+  });
+  userEvent.type(screen.getByPlaceholderText(/last name/i), 'last', {
+    allAtOnce: true,
+  });
+  userEvent.type(screen.getByPlaceholderText(/age/i), '10', {
+    allAtOnce: true,
+  });
+
+  userEvent.click(screen.getAllByRole('button')[0]);
+
+  await waitFor(() => expect(mockCreateContact).toHaveBeenCalledTimes(1));
+  expect(screen.getByText(errMessage)).toBeInTheDocument();
+});
+

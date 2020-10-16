@@ -13,7 +13,7 @@ const TitleContainer = styled.div`
 
 const StyledCard = styled(Card)`
   @media screen and (max-width: 640px) {
-    border: none;
+    border: none !important;
     .ant-card-body {
       padding: 5px;
     }

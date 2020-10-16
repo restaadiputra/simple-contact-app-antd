@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Typography, Form, Input, Button, Card } from 'antd';
+import { Typography, Form, Input, Button, Card, message } from 'antd';
 import styled from 'styled-components';
 
 import { createContact } from 'services/contact';
@@ -13,12 +13,12 @@ const TitleContainer = styled.div`
 
 const StyledCard = styled(Card)`
   @media screen and (max-width: 640px) {
-    border: none;
+    border: none !important;
     .ant-card-body {
       padding: 5px;
     }
   }
-`
+`;
 
 function AddContact() {
   const history = useHistory();
@@ -35,9 +35,9 @@ function AddContact() {
         setLoading(false);
         history.push('/');
       })
-      .catch((err) => {
+      .catch((error) => {
         setLoading(false);
-        console.log(err);
+        message.error(error?.response?.data?.message || 'Something went wrong');
       });
   };
 
