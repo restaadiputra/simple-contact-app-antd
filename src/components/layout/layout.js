@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Layout as AntdLayout } from 'antd';
+import styled from 'styled-components';
 
 const { Content } = AntdLayout;
 
+const StyledContent = styled(Content)`
+  min-height: 100vh;
+  padding: 1rem;
+`;
+
 const Layout = ({ children }) => {
-  return (
-    <Content style={{ minHeight: '100vh' }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>{children}</div>
-    </Content>
-  );
+  return <StyledContent>{children}</StyledContent>;
 };
 
 Layout.propTypes = {

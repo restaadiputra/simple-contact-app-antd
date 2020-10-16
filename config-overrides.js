@@ -12,7 +12,10 @@ module.exports = override(
     lessOptions: {
       javascriptEnabled: true,
       modifyVars: {
-        'font-size-base': '12px',
+        'font-size-base': '14px',
+        'font-family': `'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+        'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji'`,
       },
     },
   }),
