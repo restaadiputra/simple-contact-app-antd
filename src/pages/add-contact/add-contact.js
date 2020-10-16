@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { Typography, Form, Input, Button } from 'antd';
 
-import { addContact } from 'store/contact';
+import { createContact } from 'services/contact';
 
 function AddContact() {
   const history = useHistory();
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const backToList = () => {
     history.push('/');
   };
 
   const onFinish = (values) => {
-    dispatch(addContact([values]));
-    backToList();
+    setLoading(true);
+    createContact(values)
+      .then(() => {
+        setLoading(false);
+        history.push('/');
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
   };
 
   return (
@@ -90,6 +97,7 @@ function AddContact() {
               type="default"
               style={{ marginRight: '1rem' }}
               onClick={backToList}
+              disabled={loading}
             >
               Cancel
             </Button>
@@ -97,6 +105,7 @@ function AddContact() {
               type="primary"
               htmlType="submit"
               style={{ marginLeft: '1rem' }}
+              loading={loading}
             >
               Submit
             </Button>
