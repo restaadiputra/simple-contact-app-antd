@@ -47,7 +47,7 @@ const columns = (onEdit, onDelete) => [
   },
 ];
 
-function DesktopContactList({ data, onEdit, onDelete }) {
+function DesktopContactList({ data, onEdit, onDelete, loading }) {
   const addKey = (data) => data.map((item) => ({ key: item.id, ...item }));
 
   return (
@@ -55,6 +55,7 @@ function DesktopContactList({ data, onEdit, onDelete }) {
       columns={columns(onEdit, onDelete)}
       dataSource={addKey(data)}
       pagination={false}
+      loading={loading}
     />
   );
 }

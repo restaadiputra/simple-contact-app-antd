@@ -37,15 +37,15 @@ test('should handle initial state', () => {
 });
 
 test('should add new contact', () => {
-  expect(contact([], addContact(contactList[0]))).toEqual([contactList[0]]);
+  expect(contact([], addContact([contactList[0]]))).toEqual([contactList[0]]);
 
-  expect(contact([contactList[0]], addContact(contactList[1]))).toEqual([
+  expect(contact([contactList[0]], addContact([contactList[1]]))).toEqual([
     contactList[0],
     contactList[1],
   ]);
 
   expect(
-    contact([contactList[0], contactList[1]], addContact(contactList[2]))
+    contact([contactList[0], contactList[1]], addContact([contactList[2]]))
   ).toEqual(contactList);
 });
 

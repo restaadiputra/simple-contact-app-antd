@@ -7,7 +7,7 @@ const initialState = [];
 const contactReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_CONTACT:
-      return [...state, action.payload];
+      return [...state, ...action.payload];
 
     case UPDATE_CONTACT:
       return state.map((contact) => {

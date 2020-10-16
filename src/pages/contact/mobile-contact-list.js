@@ -12,10 +12,11 @@ const StyledListItemMeta = styled(List.Item.Meta)`
   }
 `;
 
-function ContactList({ data, onEdit, onDelete }) {
+function ContactList({ data, onEdit, onDelete, loading }) {
   return (
     <List
       itemLayout="horizontal"
+      loading={loading}
       dataSource={data}
       renderItem={(item) => (
         <List.Item key={item.id}>

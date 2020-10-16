@@ -14,7 +14,7 @@ function AddContact() {
   };
 
   const onFinish = (values) => {
-    dispatch(addContact(values));
+    dispatch(addContact([values]));
     backToList();
   };
 

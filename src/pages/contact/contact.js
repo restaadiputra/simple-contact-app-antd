@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,11 +8,15 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import MobileContactList from './mobile-contact-list';
 import DesktopContactList from './desktop-contact-list';
 import Fab from 'components/fab';
-import { deleteContact } from 'store/contact';
+import { deleteContact, addContact } from 'store/contact';
+import { getAllContact } from 'services/contact';
 
 function Contact() {
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
+
   const isMobile = useMediaQuery({ maxWidth: 640 });
   const contactData = useSelector(({ contact }) => contact);
 
@@ -43,6 +47,22 @@ function Contact() {
     });
   };
 
+  useEffect(() => {
+    setLoading(true);
+    getAllContact()
+      .then(res => {
+        console.log(res);
+        setLoading(false);
+        dispatch(addContact(res))
+      })
+      .catch(err => {
+        setLoading(false);
+        console.log(err)
+      })
+  }, [dispatch]);
+
+  
+
   return (
     <>
       <Typography.Title level={2}>Contact</Typography.Title>
@@ -51,12 +71,14 @@ function Contact() {
           data={contactData}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          loading={loading}
         />
       ) : (
         <DesktopContactList
           data={contactData}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          loading={loading}
         />
       )}
       {isMobile && <Fab onClick={handleAdd} />}
