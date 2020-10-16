@@ -47,15 +47,7 @@ const columns = (onEdit, onDelete) => [
   },
 ];
 
-function DesktopContactList({ data }) {
-  const onEdit = (id) => {
-    console.log('edit ' + id);
-  };
-
-  const onDelete = (id) => {
-    console.log('delete ' + id);
-  };
-
+function DesktopContactList({ data, onEdit, onDelete }) {
   const addKey = (data) => data.map((item) => ({ key: item.id, ...item }));
 
   return (
@@ -77,6 +69,8 @@ DesktopContactList.propTypes = {
       photo: PropTypes.string,
     })
   ),
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default DesktopContactList;

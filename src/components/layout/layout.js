@@ -7,7 +7,9 @@ const { Content } = AntdLayout;
 
 const StyledContent = styled(Content)`
   min-height: 100vh;
+  max-width: 1200px;
   padding: 1rem;
+  margin: 0 auto;
 `;
 
 const Layout = ({ children }) => {

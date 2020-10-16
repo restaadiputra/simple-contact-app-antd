@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import MobileContactList from '../mobile-contact-list';
 
 test('should render data', () => {
@@ -13,20 +13,15 @@ test('should render data', () => {
     },
   ];
 
-  const { getByText, getByTestId, queryByTestId } = render(
-    <MobileContactList data={data} />
+  const onEdit = jest.fn();
+  const onDelete = jest.fn();
+
+  const { getByText } = render(
+    <MobileContactList data={data} onEdit={onEdit} onDelete={onDelete} />
   );
   expect(
     getByText(data[0].firstName + ' ' + data[0].lastName)
   ).toBeInTheDocument();
   expect(getByText(data[0].age + ' years old')).toBeInTheDocument();
 
-  const menu = getByTestId('menu');
-  fireEvent.click(menu);
-  const editButton = queryByTestId('edit');
-  fireEvent.click(editButton);
-
-  fireEvent.click(menu);
-  const deleteButton = queryByTestId('delete');
-  fireEvent.click(deleteButton);
 });

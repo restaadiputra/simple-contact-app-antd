@@ -12,15 +12,7 @@ const StyledListItemMeta = styled(List.Item.Meta)`
   }
 `;
 
-function ContactList({ data }) {
-  const onEdit = (id) => {
-    console.log('edit ' + id);
-  };
-
-  const onDelete = (id) => {
-    console.log('delete ' + id);
-  };
-
+function ContactList({ data, onEdit, onDelete }) {
   return (
     <List
       itemLayout="horizontal"
@@ -52,6 +44,8 @@ ContactList.propTypes = {
       photo: PropTypes.string,
     })
   ),
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default ContactList;

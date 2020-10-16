@@ -1,6 +1,8 @@
-import { Typography } from 'antd';
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { Typography, Modal } from 'antd';
+import { useHistory } from 'react-router-dom';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 import MobileContactList from './mobile-contact-list';
 import DesktopContactList from './desktop-contact-list';
@@ -37,15 +39,50 @@ const data = [
 ];
 
 function Contact() {
+  const history = useHistory();
   const isMobile = useMediaQuery({ maxWidth: 640 });
+  const { confirm } = Modal;
+
+  const handleEdit = (id) => {
+    history.push(`/${id}`);
+  };
+
+  const handleDelete = (id) => {
+    console.log(id);
+    confirm({
+      title: 'Delete contact?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'These action cannot be undone',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        console.log('OK', id);
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+      width: 300,
+      centered: true,
+      maskClosable: true,
+    });
+  };
 
   return (
     <>
       <Typography.Title level={2}>Contact</Typography.Title>
       {isMobile ? (
-        <MobileContactList data={data} />
+        <MobileContactList
+          data={data}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
       ) : (
-        <DesktopContactList data={data} />
+        <DesktopContactList
+          data={data}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
       )}
     </>
   );
