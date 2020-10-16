@@ -1,7 +1,10 @@
 import React from 'react';
-import { render, screen, cleanup } from '@testing-library/react';
+import { screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import AddContactPage from './add-contact';
+import { renderWithStore } from 'test/utils';
+
 
 afterEach(() => {
   cleanup();
@@ -17,8 +20,17 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
+test('should go back to contact list if cancel button was clicked', () => {
+  renderWithStore(<AddContactPage />);
+
+  userEvent.click(screen.getAllByRole('button')[0]);
+
+  expect(mockHistoryPush).toHaveBeenCalledTimes(1);
+  expect(mockHistoryPush).toHaveBeenCalledWith('/');
+});
+
 test('should render form without error', () => {
-  render(<AddContactPage />);
+  renderWithStore(<AddContactPage />);
 
   userEvent.type(screen.getByPlaceholderText(/first name/i), 'first', {
     allAtOnce: true,
@@ -33,11 +45,4 @@ test('should render form without error', () => {
   userEvent.click(screen.getAllByRole('button')[1]);
 });
 
-test('should go back to contact list if cancel button was clicked', () => {
-  render(<AddContactPage />);
 
-  userEvent.click(screen.getAllByRole('button')[0]);
-
-  expect(mockHistoryPush).toHaveBeenCalledTimes(1);
-  expect(mockHistoryPush).toHaveBeenCalledWith('/');
-});

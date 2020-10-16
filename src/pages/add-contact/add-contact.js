@@ -1,15 +1,21 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Typography, Form, Input, Button } from 'antd';
+
+import { addContact } from 'store/contact';
 
 function AddContact() {
   const history = useHistory();
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
+  const dispatch = useDispatch();
 
   const backToList = () => {
     history.push('/');
+  };
+
+  const onFinish = (values) => {
+    dispatch(addContact(values));
+    backToList();
   };
 
   return (
