@@ -6,6 +6,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 import MobileContactList from './mobile-contact-list';
 import DesktopContactList from './desktop-contact-list';
+import Fab from 'components/fab';
 
 const data = [
   {
@@ -44,7 +45,11 @@ function Contact() {
   const { confirm } = Modal;
 
   const handleEdit = (id) => {
-    history.push(`/${id}`);
+    history.push(`/edit/${id}`);
+  };
+
+  const handleAdd = () => {
+    history.push('/add');
   };
 
   const handleDelete = (id) => {
@@ -84,6 +89,7 @@ function Contact() {
           onDelete={handleDelete}
         />
       )}
+      {isMobile && <Fab onClick={handleAdd} />}
     </>
   );
 }
