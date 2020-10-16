@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
+    "@loadable/component": "^5.13.2",
     "antd": "^4.7.0",
     "axios": "^0.20.0",
     "history": "^5.0.0",
