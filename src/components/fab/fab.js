@@ -22,7 +22,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const Fab = ({ onClick }) => {
+const Fab = ({ onClick, ...props }) => {
   return (
     <FabContainer>
       <StyledButton
@@ -30,7 +30,8 @@ const Fab = ({ onClick }) => {
         icon={<PlusOutlined />}
         onClick={onClick}
         shape="circle"
-        size='large'
+        size="large"
+        {...props}
       />
     </FabContainer>
   );

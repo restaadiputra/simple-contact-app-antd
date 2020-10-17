@@ -68,13 +68,12 @@ function Contact() {
     setLoading(true);
     getAllContact()
       .then((res) => {
-        console.log(res);
         setLoading(false);
         dispatch(replaceContact(res));
       })
-      .catch((err) => {
+      .catch((error) => {
         setLoading(false);
-        console.log(err);
+        message.error(error?.response?.data?.message || 'Something went wrong');
       });
   }, [dispatch]);
 
@@ -83,7 +82,12 @@ function Contact() {
       <TitleContainer>
         <Typography.Title level={2}>Contact</Typography.Title>
         {!isMobile && (
-          <Button type="primary" icon={<UserAddOutlined />} onClick={handleAdd}>
+          <Button
+            type="primary"
+            icon={<UserAddOutlined />}
+            onClick={handleAdd}
+            data-testid="add"
+          >
             Add Contact
           </Button>
         )}
@@ -103,7 +107,7 @@ function Contact() {
           loading={loading}
         />
       )}
-      {isMobile && <Fab onClick={handleAdd} />}
+      {isMobile && <Fab onClick={handleAdd} data-testid="add" />}
     </>
   );
 }

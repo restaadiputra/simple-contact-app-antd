@@ -85,7 +85,7 @@ test('should render form without error', async () => {
   expect(mockUpdateContactById).toBeCalledWith(data.id, newData);
 });
 
-test('should show error from server when fetching user data', async () => {
+test('should show error from server when fetching contact data', async () => {
   const errMessage = `data id ${data.id} is not in contact list`;
   mockGetContactById.mockImplementation(() =>
     Promise.reject({
@@ -108,7 +108,7 @@ test('should show error from server when fetching user data', async () => {
   expect(mockMessage).toHaveBeenCalledWith(errMessage);
 });
 
-test('should show basic error when fetching user data', async () => {
+test('should show basic error when fetching contact data', async () => {
   const errMessage = `Something went wrong`;
   mockGetContactById.mockImplementation(() =>
     Promise.reject({ message: 'Error' })
@@ -125,7 +125,7 @@ test('should show basic error when fetching user data', async () => {
   expect(mockMessage).toHaveBeenCalledWith(errMessage);
 });
 
-test('should show error from server when updating user data', async () => {
+test('should show error from server when updating contact data', async () => {
   mockGetContactById.mockImplementation(() => Promise.resolve(data));
 
   const errMessage = `update failed`;
@@ -153,7 +153,7 @@ test('should show error from server when updating user data', async () => {
   expect(mockMessage).toHaveBeenCalledWith(errMessage);
 });
 
-test('should show basic error from server when updating user data', async () => {
+test('should show basic error when updating contact data', async () => {
   mockGetContactById.mockImplementation(() => Promise.resolve(data));
 
   const errMessage = `Something went wrong`;
