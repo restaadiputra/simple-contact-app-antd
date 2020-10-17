@@ -72,8 +72,8 @@ test('should set the value from data', async () => {
     screen.getByPlaceholderText('your link to your photo profile').value
   ).toBe(data.photo);
 
-  userEvent.click(screen.getByText('Edit'))
-  await waitFor(() =>  expect(onFinish).toBeCalledTimes(1));
+  userEvent.click(screen.getByText('Edit'));
+  await waitFor(() => expect(onFinish).toBeCalledTimes(1));
   expect(onFinish).toBeCalledWith(data);
 });
 
@@ -157,4 +157,20 @@ describe('form validation', () => {
       screen.getByText('Age must be larger than 0 and less or equal to 100')
     );
   });
+});
+
+test('should allow cancel button even loading and disable is true', () => {
+  render(
+    <Form
+      title="Edit Contact"
+      backToList={backToList}
+      onFinish={onFinish}
+      loading
+      disable
+      allowCancel
+      submitText="Edit"
+    />
+  );
+
+  expect(screen.queryAllByRole('button')[1]).toHaveAttribute('disabled', '');
 });

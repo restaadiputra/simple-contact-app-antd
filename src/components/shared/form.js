@@ -26,6 +26,7 @@ function ContactForm({
   submitText,
   title,
   data,
+  allowCancel,
 }) {
   const [form] = Form.useForm();
 
@@ -62,8 +63,8 @@ function ContactForm({
               },
               {
                 min: 3,
-                message: 'First name must be 3 or more letters'
-              }
+                message: 'First name must be 3 or more letters',
+              },
             ]}
           >
             <Input
@@ -85,8 +86,8 @@ function ContactForm({
               },
               {
                 min: 3,
-                message: 'Last name must be 3 or more letters'
-              }
+                message: 'Last name must be 3 or more letters',
+              },
             ]}
           >
             <Input placeholder="your last name" disabled={loading || disable} />
@@ -131,7 +132,7 @@ function ContactForm({
               type="default"
               style={{ marginLeft: '1rem' }}
               onClick={backToList}
-              disabled={loading || disable}
+              disabled={allowCancel ?? (loading || disable)}
             >
               Cancel
             </Button>
@@ -154,6 +155,7 @@ ContactForm.propTypes = {
   title: PropTypes.string,
   loading: PropTypes.bool,
   disable: PropTypes.bool,
+  allowCancel: PropTypes.bool,
   onFinish: PropTypes.func,
   backToList: PropTypes.func,
 };

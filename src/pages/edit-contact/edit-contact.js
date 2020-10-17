@@ -11,6 +11,7 @@ function EditContact() {
 
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(false);
+  const [allowCancel, setAllowCancel] = useState(false);
   const [data, setData] = useState(null);
 
   const onFinish = (values) => {
@@ -23,6 +24,7 @@ function EditContact() {
       })
       .catch((error) => {
         setLoading(false);
+        setAllowCancel(true);
         message.error(error?.response?.data?.message || 'Something went wrong');
       });
   };
@@ -54,6 +56,7 @@ function EditContact() {
       loading={loading}
       disable={disable}
       submitText="Edit"
+      allowCancel={allowCancel}
     />
   );
 }
