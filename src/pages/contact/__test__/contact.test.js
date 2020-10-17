@@ -162,7 +162,7 @@ describe('delete menu', () => {
 
     await waitFor(() => expect(mockDeleteContactById).toHaveBeenCalledTimes(1));
     expect(mockMessage).toBeCalledTimes(1);
-    expect(mockMessage).toHaveBeenCalledWith('Error deleting contact');
+    expect(mockMessage).toHaveBeenCalledWith({"content": "Error deleting contact", "key": "delete-contact"});
   });
 
   test('should show error from server when deleting contact data', async () => {
@@ -189,6 +189,6 @@ describe('delete menu', () => {
 
     await waitFor(() => expect(mockDeleteContactById).toHaveBeenCalledTimes(1));
     expect(mockMessage).toBeCalledTimes(1);
-    expect(mockMessage).toHaveBeenCalledWith('Something went wrong');
+    expect(mockMessage).toHaveBeenCalledWith({"content": "Something went wrong", "key": "delete-contact"});
   });
 });

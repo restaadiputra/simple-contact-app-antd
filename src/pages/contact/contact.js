@@ -38,12 +38,18 @@ function Contact() {
   };
 
   const handleDeleteContact = (id) => {
+    const key = 'delete-contact';
+    message.loading({ content: 'Deleting 1 contact', key });
     deleteContactById(id)
       .then(() => {
+        message.loading({ content: '1 contact has been deleted', key });
         dispatch(deleteContact(id));
       })
       .catch((error) => {
-        message.error(error?.response?.data?.message || 'Something went wrong');
+        message.error({
+          content: error?.response?.data?.message || 'Something went wrong',
+          key,
+        });
       });
   };
 
