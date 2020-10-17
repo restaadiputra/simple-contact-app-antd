@@ -122,7 +122,8 @@ function ContactForm({
               type="primary"
               htmlType="submit"
               style={{ marginRight: '1rem' }}
-              disabled={loading || disable}
+              disabled={disable}
+              loading={loading}
             >
               {submitText}
             </Button>
