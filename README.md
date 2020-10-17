@@ -1,68 +1,76 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Simple Contact App
 
-## Available Scripts
+**Live Demo 🔥**:
 
-In the project directory, you can run:
+- https://loving-golick-8a1d7a.netlify.app/
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Pre Run
 
-### `npm test`
+Before you run the project, you have to create the local env first by running this command (*assuming you already inside the project `root` directory*).
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```shell
+touch .env.development.local
+```
 
-### `npm run build`
+That command will create `env` file for you. Open it and add
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```shell
+REACT_APP_SERVER_API=<your-server-api-host>
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+You can change `<your-server-api-host>`, for example if you previously run server api at `http://localhost:3000`, you can add this in `env` file
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+REACT_APP_SERVER_API=http://localhost:3000
+```
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Install All dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+go to server directory and install all its dependecies (we assume you still in `root` directory )
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```shell
+npm install
+```
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Run
 
-### Code Splitting
+Run the client by using `start` command
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```shell
+npm run start
+```
 
-### Analyzing the Bundle Size
+By default it will run at http://localhost:3000 or if you already set up your own port.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-### Making a Progressive Web App
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+#### Test
 
-### Advanced Configuration
+To test the client, you can use 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+```shell
+npm run test
+```
 
-### Deployment
+or if you want to see the coverage, you can use
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+```shell
+npm run test -- --coverage
+```
 
-### `npm run build` fails to minify
+##### Test Coverage 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+![coverage](coverage.png)
+
+### Tech Use
+
+- React
+- Ant-Design
+- Axios
+- @testing-library
