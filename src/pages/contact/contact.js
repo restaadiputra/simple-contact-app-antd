@@ -42,7 +42,7 @@ function Contact() {
     message.loading({ content: 'Deleting 1 contact', key });
     deleteContactById(id)
       .then(() => {
-        message.loading({ content: '1 contact has been deleted', key });
+        message.success({ content: '1 contact has been deleted', key });
         dispatch(deleteContact(id));
       })
       .catch((error) => {
