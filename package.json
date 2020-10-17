@@ -30,7 +30,10 @@
       "!**/node_modules/**",
       "!**/coverage/**",
       "!**/serviceWorker.js",
-      "!**/index.js"
+      "!**/index.js",
+      "!**/configure-store.js",
+      "!**/test/utils.js",
+      "!**/utils/loadable.js"
     ]
   },
   "eslintConfig": {

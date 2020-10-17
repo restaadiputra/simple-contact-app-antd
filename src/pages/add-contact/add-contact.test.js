@@ -1,11 +1,11 @@
 import React from 'react';
 import { screen, cleanup, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import * as antd from 'antd';
 
 import AddContactPage from './add-contact';
 import { renderWithStore } from 'test/utils';
 import * as service from 'services/contact';
-import * as antd from 'antd';
 
 afterEach(() => {
   cleanup();

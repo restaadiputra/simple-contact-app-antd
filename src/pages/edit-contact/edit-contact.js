@@ -35,9 +35,9 @@ function EditContact() {
         message.success('One contact has been updated');
         history.push('/');
       })
-      .catch((err) => {
+      .catch((error) => {
         setLoading(false);
-        console.log(err);
+        message.error(error?.response?.data?.message || 'Something went wrong');
       });
   };
 

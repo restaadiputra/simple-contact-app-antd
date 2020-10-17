@@ -1,25 +1,42 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import DesktopContactList from '../desktop-contact-list';
 
-test('should render data', () => {
-  const data = [
-    {
-      id: '93ad6070-c92b-11e8-b02f-cbfa15db428b',
-      firstName: 'Bilbo',
-      lastName: 'Baggins',
-      age: 111,
-      photo: 'testing.jpg',
-    },
-  ];
+const onEdit = jest.fn();
+const onDelete = jest.fn();
 
-  const onEdit = jest.fn();
-  const onDelete = jest.fn();
+const data = [
+  {
+    id: '93ad6070-c92b-11e8-b02f-cbfa15db428b',
+    firstName: 'Bilbo',
+    lastName: 'Baggins',
+    age: 111,
+    photo: 'testing.jpg',
+  },
+];
 
-  const { getByText } = render(
+beforeEach(() => {
+  render(
     <DesktopContactList data={data} onEdit={onEdit} onDelete={onDelete} />
   );
-  expect(getByText(data[0].firstName)).toBeInTheDocument();
-  expect(getByText(data[0].lastName)).toBeInTheDocument();
-  expect(getByText(data[0].age + ' years old')).toBeInTheDocument();
+});
+
+test('should render data', () => {
+  expect(screen.getByText(data[0].firstName)).toBeInTheDocument();
+  expect(screen.getByText(data[0].lastName)).toBeInTheDocument();
+  expect(screen.getByText(data[0].age + ' years old')).toBeInTheDocument();
+});
+
+test('should call "onEdit" and "onDelete" props when menu item is click', () => {
+  const menu = screen.getByTestId('menu');
+  fireEvent.click(menu);
+  const editButton = screen.queryByTestId('edit');
+  fireEvent.click(editButton);
+
+  fireEvent.click(menu);
+  const deleteButton = screen.queryByTestId('delete');
+  fireEvent.click(deleteButton);
+
+  expect(onEdit).toHaveBeenCalledTimes(1);
+  expect(onDelete).toHaveBeenCalledTimes(1);
 });

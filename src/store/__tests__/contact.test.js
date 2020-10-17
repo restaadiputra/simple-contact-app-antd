@@ -1,4 +1,9 @@
-import contact, { addContact, updateContact, deleteContact } from '../contact';
+import contact, {
+  addContact,
+  updateContact,
+  deleteContact,
+  replaceContact,
+} from '../contact';
 
 const contactList = [
   {
@@ -63,5 +68,11 @@ test('should delete contact by id', () => {
   expect(contact(contactList, deleteContact(contactList[2].id))).toEqual([
     contactList[0],
     contactList[1],
+  ]);
+});
+
+test('should replace all contact', () => {
+  expect(contact(contactList, replaceContact([updatedContact]))).toEqual([
+    updatedContact,
   ]);
 });
